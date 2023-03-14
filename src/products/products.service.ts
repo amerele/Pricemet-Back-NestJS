@@ -24,22 +24,22 @@ export class ProductsService {
     return this.productRepository.find();
   }
 
-  async findOne(id: any) {
-    const product = await this.productRepository.findOne({where:id=id});
+  async findOne(id: number) {
+    const product = await this.productRepository.findOne({where: {id:id}});
     if (product) {
       return product;
     }
   }
 
-  async update(id: any, updateProductDto: UpdateProductDto) {
+  async update(id: number, updateProductDto: UpdateProductDto) {
     await this.productRepository.update(id, updateProductDto);
-    const updatedProduct = await this.productRepository.findOne({where: id=id});
+    const updatedProduct = await this.productRepository.findOne({where: {id:id}});
     if (updatedProduct) {
       return updatedProduct;
     }
   }
 
-  async remove(id:any) {
+  async remove(id:number) {
     const deletedProduct = this.productRepository.delete(id)
     if(!deletedProduct) {
       throw new HttpException('Product not found', HttpStatus.NOT_FOUND);

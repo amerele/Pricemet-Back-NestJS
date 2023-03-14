@@ -24,22 +24,22 @@ export class UsersService {
     return this.userRepository.find();
   }
 
-  async findOne(id: any) {
-    const user = await this.userRepository.findOne({where:id=id});
+  async findOne(id: number) {
+    const user = await this.userRepository.findOne({where: {id:id}});
     if (user) {
       return user;
     }
   }
 
-  async update(id: any, updateUserDto: UpdateUserDto) {
+  async update(id: number, updateUserDto: UpdateUserDto) {
     await this.userRepository.update(id, updateUserDto);
-    const updatedUser = await this.userRepository.findOne({where: id=id});
+    const updatedUser = await this.userRepository.findOne({where: {id:id}});
     if (updatedUser) {
       return updatedUser;
     }
   }
 
-  async remove(id:any) {
+  async remove(id:number) {
     const deletedUser = this.userRepository.delete(id)
     if(!deletedUser) {
       throw new HttpException('Todo not found', HttpStatus.NOT_FOUND);
